@@ -1,0 +1,28 @@
+name: Auto Release
+
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Copy of Current Repository
+      - uses: actions/checkout@v3
+      
+      - name: Set up JDK 20
+        uses: actions/setup-java@v3
+        with:
+          java-version: '20'
+          distribution: 'OpenJDK'
+          
+      - name: Auto Release
+        # You may pin to the exact commit or the version.
+        # uses: CupOfTea696/gh-action-auto-release@a8f57f49a805d334ac7abe31b689e7ea24e1ee40
+        uses: CupOfTea696/gh-action-auto-release@v1.0.2
+        with:
+          # Title for the release
+          title: Asteroids $version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
