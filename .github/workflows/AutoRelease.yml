@@ -24,3 +24,5 @@ jobs:
         with:
           # Title for the release
           title: Asteroids $version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
