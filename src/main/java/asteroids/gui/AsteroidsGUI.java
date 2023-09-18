@@ -2,9 +2,12 @@ package asteroids.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,7 +24,7 @@ public class AsteroidsGUI extends Thread implements WindowListener {
 	private Asteroids game;
 	private JFrame frame;
 	private ContentPane contentPane;
-	private ImageIcon icon;
+	private ArrayList<Image> icon;
 
 	/**
 	 * A constructor
@@ -31,14 +34,21 @@ public class AsteroidsGUI extends Thread implements WindowListener {
 	public AsteroidsGUI(Asteroids game) {
 
 		ResourceManager resourceManager = new ResourceManager();
-		icon = new ImageIcon(resourceManager.GetResourceFilePath("icon.png"));
+		icon = new ArrayList<Image>();
 		frame = new JFrame("Asteroids");
+		
+		//Add all icon resources to the image list
+		icon.add(new ImageIcon(resourceManager.GetResourceFullFilePath("icon20.png")).getImage());
+		icon.add(new ImageIcon(resourceManager.GetResourceFullFilePath("icon32.png")).getImage());
+		icon.add(new ImageIcon(resourceManager.GetResourceFullFilePath("icon32.png")).getImage());
+		
+		//Setup frame
 		frame.setPreferredSize(new Dimension(1280, 720));
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setBackground(Color.black);
 		frame.addKeyListener(game);
 		frame.addWindowListener(this);
-		frame.setIconImage(icon.getImage());
+		frame.setIconImages(icon);
 
 		this.game = game;
 		contentPane = new ContentPane(game);

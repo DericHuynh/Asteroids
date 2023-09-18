@@ -64,6 +64,7 @@ public class Asteroids implements KeyListener {
 	private ArrayList<Particle> particles;
 	private ArrayList<BodyPart> bodyParts;
 	private ArrayList<Alien> aliens;
+	
 
 	/**
 	 * Creates a new game and runs it.

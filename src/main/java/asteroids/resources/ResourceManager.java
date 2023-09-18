@@ -14,7 +14,7 @@ public class ResourceManager {
 	public File GetResource(String Name) {
 		Class<?> currentClass;
 		String currentPackageName;
-		String fullFilePathString;
+		String relativeFilePathString;
 		URL resourceURL;
 		URI resourceURI;
 		File resource = null;
@@ -22,10 +22,10 @@ public class ResourceManager {
 		currentClass = this.getClass();
 		currentPackageName = currentClass.getPackageName();
 		currentPackageName = currentPackageName.replace('.', '/');
-		fullFilePathString = "/" + currentPackageName + "/" + Name;
+		relativeFilePathString = "/" + currentPackageName + "/" + Name;
 
 		try {
-			resourceURL = currentClass.getResource(fullFilePathString);
+			resourceURL = currentClass.getResource(relativeFilePathString);
 			resourceURI = resourceURL.toURI();
 			resource = new File(resourceURI);
 		} catch(Exception e) {
@@ -38,20 +38,45 @@ public class ResourceManager {
 	/**
 	 * Returns a resources file path as a string
 	 * pre: Name representing the name of the resource, including the type of file (i.e resource.png)
-	 * post: A full file path as string
+	 * post: A relative file path as string is returned
 	 */
 	public String GetResourceFilePath(String Name) {
 		Class<?> currentClass;
 		String currentPackageName;
-		String fullFilePathString;
-		URL resourceURL;
-		URI resourceURI;
-		File resource = null;
+		String relativeFilePathString;
 		
 		currentClass = this.getClass();
 		currentPackageName = currentClass.getPackageName();
 		currentPackageName = currentPackageName.replace('.', '/');
-		fullFilePathString = "/" + currentPackageName + "/" + Name;
+		relativeFilePathString = "/" + currentPackageName + "/" + Name;
+		
+		return relativeFilePathString;
+	}
+	
+	/**
+	 * Returns a resources full file path as a string
+	 * pre: Name representing the name of the resource, including the type of file (i.e resource.png)
+	 * post: A full file path as string is returned
+	 */
+	public String GetResourceFullFilePath(String Name) {
+		Class<?> currentClass;
+		String currentPackageName;
+		String relativeFilePathString;
+		String fullFilePathString;
+		URL resourceURL = null;
+		
+		currentClass = this.getClass();
+		currentPackageName = currentClass.getPackageName();
+		currentPackageName = currentPackageName.replace('.', '/');
+		relativeFilePathString = "/" + currentPackageName + "/" + Name;
+		
+		try {
+			resourceURL = currentClass.getResource(relativeFilePathString);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		fullFilePathString = resourceURL.getPath();
 		
 		return fullFilePathString;
 	}
