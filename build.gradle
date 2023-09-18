@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+archivesBaseName = 'Asteroidz'
+version = '1.0-SNAPSHOT' 
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'asteroids.Asteroids'
+    }
+}
